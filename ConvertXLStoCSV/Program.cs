@@ -17,11 +17,19 @@ namespace ConvertXLStoCSV
 
             if (args.Length > 1)
             {
-                if (args[0] != null) inputPath = args[0];
-                if (args[1] != null) outputPath = args[1];
+                try
+                {
+                    if (args[0] != null) inputPath = args[0];
+                    if (args[1] != null) outputPath = args[1];
+                }
+                catch
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Unhandled exception has occured. Exiting...");
+                    throw;
+                }
             }
-
-            
 
 
             try
@@ -35,7 +43,7 @@ namespace ConvertXLStoCSV
                 try
                 {
                     worksheetNumber = Int32.Parse(args[2]);
-                    Console.WriteLine("[Argument3] Worksheet " + worksheetNumber.ToString());
+                    Console.WriteLine("[Argument3] Worksheet: " + worksheetNumber.ToString());
                 }
                 catch
                 {
@@ -61,6 +69,8 @@ namespace ConvertXLStoCSV
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Completed with success!");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
 
             static void ConvertExcelToCsv(string excelFilePath, string csvOutputFile, int worksheetNumber = 1)
             {
