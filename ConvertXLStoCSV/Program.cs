@@ -9,6 +9,7 @@ namespace ConvertXLStoCSV
     {
         static void Main(string[] args)
         {
+            Console.Title = "XLS to CSV Converter 1.0";
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
             string inputPath = @"C:\Users\User\Desktop\History.xls";
@@ -26,8 +27,7 @@ namespace ConvertXLStoCSV
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Unhandled exception has occured. Exiting...");
-                    throw;
+                    Console.WriteLine("Unhandled exception has occured. Exiting... [0x01]");
                 }
             }
 
@@ -63,8 +63,9 @@ namespace ConvertXLStoCSV
             {
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("An error has occured. (Perhaps your path arguments are incorrect or the CSV output file exists).");
-                throw e;
+                Console.WriteLine("An error has occured. (Perhaps your path arguments are incorrect or the CSV output file exists). [0x02]");
+                //throw e;
+                return;
             }
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Green;
@@ -93,7 +94,7 @@ namespace ConvertXLStoCSV
                 {
                     cnn.Open();
                     var schemaTable = cnn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    if (schemaTable.Rows.Count < worksheetNumber) throw new ArgumentException("The worksheet number provided cannot be found in the spreadsheet");
+                    if (schemaTable.Rows.Count < worksheetNumber) throw new ArgumentException("The worksheet number provided cannot be found in the spreadsheet [0xA1]");
                     string worksheet = schemaTable.Rows[worksheetNumber - 1]["table_name"].ToString().Replace("'", "");
                     string sql = String.Format("select * from [{0}]", worksheet);
                     var da = new OleDbDataAdapter(sql, cnn);
@@ -104,7 +105,7 @@ namespace ConvertXLStoCSV
 
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Unhandled exception has occured. Exiting...");
+                    Console.WriteLine("Unhandled exception has occured. Exiting... [0x03] " + e.ToString());
                     throw e;
                 }
                 finally
