@@ -64,7 +64,10 @@ namespace ConvertXLStoCSV
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("An error has occured. (Perhaps your path arguments are incorrect or the CSV output file exists). [0x02]");
+
                 //throw e;
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
             Console.BackgroundColor = ConsoleColor.Black;
@@ -106,10 +109,14 @@ namespace ConvertXLStoCSV
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Unhandled exception has occured. Exiting... [0x03] " + e.ToString());
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
                     throw e;
                 }
                 finally
                 {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
                     // free resources
                     cnn.Close();
                 }
